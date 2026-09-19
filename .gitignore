@@ -1,0 +1,17 @@
+# Environment variables and secrets
+
+.env
+.env.\*
+
+# Clinic environment folder or specific files
+
+clinic_env/
+clinic.env
+clinicenv/
+
+# Microsoft Word files and temporary owner files
+
+_.docx
+_.doc
+~$*.docx
+~$\*.doc
