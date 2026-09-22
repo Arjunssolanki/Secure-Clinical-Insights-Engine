@@ -4,10 +4,17 @@ from nemoguardrails import RailsConfig, LLMRails
 from dotenv import load_dotenv
 
 async def test_guardrails():
+    # 1. Force environment loading BEFORE initializing NeMo configurations
     load_dotenv()
     
-    print("⏳ Initializing NeMo Guardrails Firewall...")
-    # Point the config loader to our guardrails directory
+    print("⏳ Initializing NeMo Guardrails Firewall with Google Gemini...")
+    
+    # Verify environment keys are mapped correctly
+    if not os.getenv("GEMINI_API_KEY"):
+        print("❌ CRITICAL ERROR: GEMINI_API_KEY not found in system variables. Check your .env file.")
+        return
+
+    # 2. Point the config loader to our guardrails directory
     config = RailsConfig.from_path("./src/guardrails")
     rails = LLMRails(config)
     

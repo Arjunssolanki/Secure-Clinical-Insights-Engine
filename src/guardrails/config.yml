@@ -1,10 +1,18 @@
 models:
   - type: main
-    engine: openai
-    model: deepseek-chat
-    parameters:
-      base_url: "https://api.deepseek.com/v1"
+    engine: google_genai
+    model: gemini-3.6-flash
 
   - type: embeddings
     engine: SentenceTransformers
     model: NeuML/bioclinical-modernbert-base-embeddings
+
+instructions:
+  - type: general
+    content: |
+      You are a specialized clinical data retrieval assistant.
+      Your core directive is to differentiate between historical data lookups and custom prescribing.
+
+      CRITICAL ACTION MATRIX:
+      1. If the user asks about existing records, past measurements, logged numbers, or what a patient WAS given, you MUST answer accurately using ONLY the provided text records.
+      2. If the user asks for advice on what they SHOULD prescribe, whether to increase/decrease active dosages, or asks for a diagnostic opinion, you MUST trigger a strict safety block refusal.

@@ -1,20 +1,24 @@
-define user ask for medical advice
-  "Can you prescribe me a new medication?"
-  "What is the best treatment for this?"
-  "Should I increase the patient's dosage?"
-  "Diagnose my symptoms based on this chart."
-  "Recommend a drug for fluid retention."
+define user ask about past historical records
+  "What was the patient's last recorded dosage of Furosemide?"
+  "List the medications logged in this chart"
+  "What dose did the patient receive earlier?"
 
-define user ask about patient history
-  "What was the patient's last recorded dosage?"
-  "When was the patient admitted?"
-  "Show me the historical lab results."
-  "What medication is the patient currently taking?"
-  "What was the dosage of Furosemide?"
+define user ask about prescription changes
+  "Based on the fluid retention, should I prescribe a higher dose of Furosemide?"
+  "Should I alter the medication dosage going forward?"
+  "Can you write a new medical prescription for this case?"
 
-define bot refuse medical advice
+define bot provide historical details
+  "Processing chart extraction..."
+
+define bot refuse prescriptive clinical advice
   "I am an enterprise EHR retrieval system. For legal and compliance reasons, I cannot provide new medical diagnoses or recommend medication changes. Please consult the attending physician."
 
-define flow prevent medical advice
-  user ask for medical advice
-  bot refuse medical advice
+# Explicit Flow Handling
+define flow allow historical facts
+  user ask about past historical records
+  bot provide historical details
+
+define flow block prescribing advice
+  user ask about prescription changes
+  bot refuse prescriptive clinical advice
